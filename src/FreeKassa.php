@@ -38,7 +38,7 @@ class FreeKassa
         // Array of url query
         $query = [
             'pay' => 'PAY',
-            'currency' => 'USD'
+            'currency' => config('freekassa.base_currency')
         ];
 
         // If user parameters array doesn`t empty
@@ -79,7 +79,9 @@ class FreeKassa
         $query['s'] = $this->getFormSignature(
             config('freekassa.project_id'),
             $amount,
-            config('freekassa.secret_key'), $order_id
+            config('freekassa.secret_key'),
+            config('freekassa.base_currency'),
+            $order_id
         );
 
         // Merge url ang query and return
@@ -120,9 +122,9 @@ class FreeKassa
      * @param $order_id
      * @return string
      */
-    public function getFormSignature($project_id, $amount, $secret, $order_id)
+    public function getFormSignature($project_id, $amount, $secret, $currency, $order_id)
     {
-        $hashStr = $project_id.':'.$amount.':'.$secret.':'.$order_id;
+        $hashStr = $project_id.':'.$amount.':'.$secret.':'.$currency.':'.$order_id;
 
         return md5($hashStr);
     }
@@ -134,9 +136,9 @@ class FreeKassa
      * @param $order_id
      * @return string
      */
-    public function getSignature($project_id, $amount, $secret, $order_id)
+    public function getSignature($project_id, $amount, $secret,$currency, $order_id)
     {
-        $hashStr = $project_id.':'.$amount.':'.$secret.':'.$order_id;
+        $hashStr = $project_id.':'.$amount.':'.$secret.':'.$currency.':'.$order_id;
 
         return md5($hashStr);
     }

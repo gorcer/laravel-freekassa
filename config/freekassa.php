@@ -29,6 +29,8 @@ return [
      */
     'currency' => null,
 
+    'base_currency' => env('FREEKASSA_BASE_CURRENCY', 'USD'),
+
     /*
      * Allowed ip's https://www.free-kassa.ru/docs/api.php#step3
      */
