@@ -36,7 +36,10 @@ class FreeKassa
         $url = config('freekassa.pay_url');
 
         // Array of url query
-        $query = [];
+        $query = [
+            'pay' => 'PAY',
+            'currency' => 'USD'
+        ];
 
         // If user parameters array doesn`t empty
         // add parameters to payment query
